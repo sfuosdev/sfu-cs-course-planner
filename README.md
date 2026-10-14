@@ -1,5 +1,5 @@
 <h4 align="center">
-     <img src="./sfu-course-planner-logo.png" alt="API Token Usage Tracker Logo" width="180" />
+     <img src="static/sfu-course-planner-logo.png" alt="API Token Usage Tracker Logo" width="180" />
 </h4>
 
 
