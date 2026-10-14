@@ -1,3 +1,8 @@
+<h4 align="center">
+    <br><img src="static/sfu_course_planner_logo.png" alt="ArminC AutoExec"></a>
+</h4>
+
+
 # SFU CS Course Planner
 
 **A full-stack web application to help SFU Computing Science students plan their courses, track degree requirements, check prerequisites, and organize their academic schedules.**
