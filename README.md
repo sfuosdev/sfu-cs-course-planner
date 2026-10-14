@@ -1,5 +1,5 @@
 <h4 align="center">
-    <br><img src="static/sfu_course_planner_logo.png" alt="ArminC AutoExec"></a>
+     <img src="./sfu-cs-course-planner-logo.png" alt="API Token Usage Tracker Logo" width="180" />
 </h4>
 
 
