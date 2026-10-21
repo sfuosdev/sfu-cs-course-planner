@@ -1,3 +1,8 @@
+<h4 align="center">
+     <img src="static/sfu_course_planner_logo.png" alt="API Token Usage Tracker Logo" width="180" />
+</h4>
+
+
 # SFU CS Course Planner
 
 **A full-stack web application to help SFU Computing Science students plan their courses, track degree requirements, check prerequisites, and organize their academic schedules.**
