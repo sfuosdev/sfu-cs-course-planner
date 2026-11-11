@@ -1,14 +1,12 @@
 # Local Setup
 
-> The application isn't scaffolded yet. This guide will be updated as the
-> frontend (#18), backend (#10), database (#11) and Docker (#35) setup are added.
+This guide covers the FastAPI backend. Frontend, database, and Docker setup will
+be documented as those parts of the project are added.
 
 ## Prerequisites
 
 - Git
-- Node.js and npm
-- Python 3
-- Docker Desktop or Docker Engine with Docker Compose
+- Python 3.12 (the version used by CI)
 
 ## Get the code
 
@@ -21,3 +19,39 @@
    git remote add upstream https://github.com/sfuosdev/sfu-cs-course-planner.git
    git remote -v
    ```
+
+## Set up and run the backend
+
+Create and activate a virtual environment from the repository root, then install
+the backend dependencies:
+
+```bash
+python -m venv .venv
+# Windows PowerShell
+.venv\Scripts\Activate.ps1
+# macOS/Linux: source .venv/bin/activate
+python -m pip install -r backend/requirements.txt
+```
+
+Copy `.env.example` to `.env` in the repository root to override the defaults.
+The app reads `APP_NAME`, `APP_VERSION`, `APP_ENV`, and `DEBUG` from that file or
+from the process environment.
+
+Start the development server from the `backend` directory:
+
+```bash
+cd backend
+python -m uvicorn app.main:app --reload
+```
+
+The API is available at <http://127.0.0.1:8000>. The liveness endpoint is
+`/health`; interactive Swagger documentation is at `/docs`, ReDoc is at
+`/redoc`, and the OpenAPI schema is at `/openapi.json`.
+
+## Run backend tests
+
+From the repository root:
+
+```bash
+python -m pytest backend/tests -q
+```
