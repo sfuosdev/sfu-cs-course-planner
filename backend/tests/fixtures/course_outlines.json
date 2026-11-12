@@ -1,0 +1,12 @@
+[
+  {
+    "dept": "CMPT",
+    "number": "225",
+    "title": "Data Structures and Programming",
+    "units": "3",
+    "description": "<p>Introduction to data structures<br>and algorithms.</p>",
+    "prerequisites": "CMPT 125 and MACM 101.",
+    "corequisites": "",
+    "offerings": [{"term": "Fall 2026", "instructors": ["Ada Lovelace"]}]
+  }
+]
