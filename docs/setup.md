@@ -1,9 +1,7 @@
 # Local Setup
 
-This guide covers the FastAPI backend. Frontend, database, and Docker setup will
-be documented as those parts of the project are added.
-> The frontend scaffold is available. The backend, database and Docker setup
-> will be documented as issues #10, #11 and #35 are completed.
+This guide covers the FastAPI backend and the React frontend. Database and
+Docker setup will be documented as issues #11 and #35 are completed.
 
 ## Prerequisites
 
@@ -53,13 +51,18 @@ The API is available at <http://127.0.0.1:8000>. The liveness endpoint is
 `/redoc`, and the OpenAPI schema is at `/openapi.json`.
 
 ## Run backend tests
-## Run the frontend
 
 From the repository root:
 
 ```bash
 python -m pytest backend/tests -q
 ```
+
+## Run the frontend
+
+From the repository root:
+
+```bash
 cd frontend
 npm install
 npm run dev
