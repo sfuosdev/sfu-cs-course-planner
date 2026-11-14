@@ -1,0 +1,9 @@
+{
+  "CMPT 225": {
+    "type": "and",
+    "children": [
+      {"type": "course", "id": "CMPT 125"},
+      {"type": "course", "id": "MACM 101"}
+    ]
+  }
+}

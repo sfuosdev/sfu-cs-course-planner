@@ -36,8 +36,11 @@ python -m pip install -r backend/requirements.txt
 ```
 
 Copy `.env.example` to `.env` in the repository root to override the defaults.
-The app reads `APP_NAME`, `APP_VERSION`, `APP_ENV`, and `DEBUG` from that file or
-from the process environment.
+The app reads `APP_NAME`, `APP_VERSION`, `APP_ENV`, `DEBUG`,
+`SFU_COURSES_API_BASE_URL`, and `SFU_COURSES_API_TIMEOUT_SECONDS` from that file
+or from the process environment. The `/courses` endpoint accepts optional `dept`
+and `number` query parameters and returns course outline data from sfucourses.
+Upstream errors return 502 and upstream timeouts return 504.
 
 Start the development server from the `backend` directory:
 
