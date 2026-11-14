@@ -2,11 +2,15 @@
 
 This guide covers the FastAPI backend. Frontend, database, and Docker setup will
 be documented as those parts of the project are added.
+> The frontend scaffold is available. The backend, database and Docker setup
+> will be documented as issues #10, #11 and #35 are completed.
 
 ## Prerequisites
 
 - Git
 - Python 3.12 (the version used by CI)
+
+The frontend uses Vite, which requires Node.js 20.19+ or 22.12+, and npm.
 
 ## Get the code
 
@@ -49,9 +53,18 @@ The API is available at <http://127.0.0.1:8000>. The liveness endpoint is
 `/redoc`, and the OpenAPI schema is at `/openapi.json`.
 
 ## Run backend tests
+## Run the frontend
 
 From the repository root:
 
 ```bash
 python -m pytest backend/tests -q
 ```
+cd frontend
+npm install
+npm run dev
+```
+
+Open the local URL printed by Vite (usually `http://localhost:5173`). To create
+and preview a production build, run `npm run build` and then `npm run preview`
+from `frontend/`.

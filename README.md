@@ -17,7 +17,7 @@ The platform aims to simplify course selection, prerequisite checking, degree re
 
 This project is part of the **SFU OS DEV Fall 2026 Open Source Project Initiative**, providing students with opportunities to gain hands-on experience in full-stack development, database management, API integration, and collaborative software engineering.
 
-**Project Status:** Early Development — Planning & Initial Setup
+**Project Status:** Early Development — Frontend scaffold initialized
 
 ## Key Features
 
@@ -166,20 +166,18 @@ git remote -v
 
 ### 4. Set Up the Development Environment
 
-The frontend, backend, PostgreSQL database, and Adminer development environment will be configured as part of the initial project setup.
+The React + TypeScript + Vite frontend is available in `frontend/`. Follow the [local setup guide](docs/setup.md) to run it. The backend, PostgreSQL database, and Adminer development environment are still being configured.
 
-Once the application scaffold is available, detailed installation and startup instructions will be maintained in:
+Additional installation and startup instructions will be added to `docs/setup.md` as backend and database services are configured.
 
-`docs/setup.md`
-
-**Note:** The complete application is not yet implemented. The local setup instructions will be updated as the initial development environment becomes available.
+**Note:** The complete application is not yet implemented. The local setup instructions will be updated as additional development services become available.
 
 ## Development Roadmap
 
 Development will be organized into phases.
 
 ### Phase 1 — Project Initialization
-- [ ] Initialize React + TypeScript frontend
+- [x] Initialize React + TypeScript frontend
 - [ ] Initialize FastAPI backend
 - [ ] Configure PostgreSQL and Adminer
 - [ ] Set up Docker Compose
