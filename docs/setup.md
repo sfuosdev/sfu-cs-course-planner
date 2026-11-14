@@ -37,3 +37,28 @@ npm run dev
 Open the local URL printed by Vite (usually `http://localhost:5173`). To create
 and preview a production build, run `npm run build` and then `npm run preview`
 from `frontend/`.
+
+## Run the backend tests
+
+From the repository root, create a virtual environment and install the backend
+dependencies (first time only):
+
+```bash
+cd backend
+python -m venv .venv
+```
+
+Activate it:
+
+- Windows (PowerShell): `.venv\Scripts\Activate.ps1`
+- macOS/Linux: `source .venv/bin/activate`
+
+Then install and run the tests:
+
+```bash
+pip install -r requirements.txt
+python -m pytest
+```
+
+Run the tests from `backend/` so Python can find the `app` package. The tests don't
+need a database.
