@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useCourses } from "../../contexts/CourseContext";
-import type { Course } from "../../types/course";
+import { useCourses } from "#contexts/CourseContext";
+import type { Course } from "#types/Course";
 import { CourseSearchCard } from "./CourseSearchCard/CourseSearchCard";
 import styles from "./CourseSearch.module.css";
 

@@ -1,4 +1,4 @@
-import type { Course } from "../../../types/course";
+import type { Course } from "#types/Course";
 import styles from "./CourseSearchCard.module.css";
 interface CourseSearchCardProps {
   course: Course;
