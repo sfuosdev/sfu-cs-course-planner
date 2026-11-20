@@ -298,7 +298,7 @@ work afterwards. Or with curl:
 
 ```bash
 curl -c cookies.txt -H "Content-Type: application/json" \
-  -d '{"email":"me@sfu.ca","password":"correct horse battery"}' \
+  -d '{"email":"me@sfu.ca","password":"correct horse battery","username":"Me"}' \
   http://localhost:8000/api/auth/register
 curl -b cookies.txt http://localhost:8000/api/plans
 ```

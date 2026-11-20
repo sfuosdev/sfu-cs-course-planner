@@ -3,8 +3,6 @@ from app.models.base import Base
 from sqlalchemy import DateTime, func, String
 from sqlalchemy.orm import Mapped, mapped_column
 
-#from (INSERT BASE HERE) import Base 
-
 class User(Base):
     __tablename__ = "users"
 
@@ -29,3 +27,7 @@ class User(Base):
         nullable = False
     )
 
+    username: Mapped[str] = mapped_column(
+        String(255),
+        nullable = False
+    )

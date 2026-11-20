@@ -7,7 +7,10 @@ PASSWORD = "correct horse battery"
 
 
 def sign_up(client, email):
-    response = client.post("/api/auth/register", json={"email": email, "password": PASSWORD})
+    response = client.post(
+        "/api/auth/register",
+        json={"email": email, "password": PASSWORD, "username": "Test user"},
+    )
     assert response.status_code == 201
     return response.json()["id"]
 

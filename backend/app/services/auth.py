@@ -40,12 +40,12 @@ def _as_utc(value: datetime) -> datetime:
     return value if value.tzinfo is not None else value.replace(tzinfo=timezone.utc)
 
 
-def create_user(db: Session, email: str, password: str) -> User:
+def create_user(db: Session, email: str, password: str, username: str) -> User:
     normalized = normalize_email(email)
     if db.scalar(select(User.id).where(User.email == normalized)) is not None:
         raise EmailAlreadyRegisteredError(normalized)
 
-    user = User(email=normalized, password_hash=hash_password(password))
+    user = User(email=normalized, username=username, password_hash=hash_password(password))
     db.add(user)
     try:
         db.commit()

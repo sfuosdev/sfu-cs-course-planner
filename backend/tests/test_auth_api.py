@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
+import pytest
 from sqlalchemy import select
 
 from app.config import settings
@@ -7,10 +8,14 @@ from app.models import User, UserSession
 
 EMAIL = "student@sfu.ca"
 PASSWORD = "correct horse battery"
+USERNAME = "Test user"
 
 
-def register(client, email=EMAIL, password=PASSWORD):
-    return client.post("/api/auth/register", json={"email": email, "password": password})
+def register(client, email=EMAIL, password=PASSWORD, username=USERNAME):
+    return client.post(
+        "/api/auth/register",
+        json={"email": email, "password": password, "username": username},
+    )
 
 
 def login(client, email=EMAIL, password=PASSWORD):
@@ -25,7 +30,7 @@ def test_register_creates_account_and_signs_in(client):
     assert response.status_code == 201
     body = response.json()
     assert body["email"] == EMAIL
-    assert set(body) == {"id", "email", "createdAt"}
+    assert set(body) == {"id", "email", "username", "createdAt"}
     assert client.get("/api/auth/me").json()["email"] == EMAIL
 
 
@@ -71,6 +76,47 @@ def test_register_rejects_short_password(client):
 
 def test_register_rejects_invalid_email(client):
     assert register(client, email="not-an-email").status_code == 422
+
+
+# ---------- Username ----------
+
+def test_register_returns_and_stores_username(client, session_factory):
+    assert register(client).json()["username"] == USERNAME
+
+    with session_factory() as db:
+        assert db.scalar(select(User.username)) == USERNAME
+
+
+def test_me_and_login_return_username(client, make_client):
+    register(client)
+
+    assert client.get("/api/auth/me").json()["username"] == USERNAME
+    assert login(make_client()).json()["username"] == USERNAME
+
+
+def test_register_trims_username(client):
+    assert register(client, username="  Test user  ").json()["username"] == USERNAME
+
+
+def test_register_without_username_returns_422(client):
+    response = client.post("/api/auth/register", json={"email": EMAIL, "password": PASSWORD})
+
+    assert response.status_code == 422
+
+
+@pytest.mark.parametrize("username", ["", "   ", "x" * 51])
+def test_register_rejects_invalid_username(client, username):
+    assert register(client, username=username).status_code == 422
+
+
+def test_register_accepts_50_character_username(client):
+    assert register(client, username="x" * 50).status_code == 201
+
+
+def test_two_users_can_share_a_username(client, make_client):
+    register(client)
+
+    assert register(make_client(), email="other@sfu.ca").status_code == 201
 
 
 # ---------- Login ----------

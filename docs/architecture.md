@@ -84,7 +84,7 @@ The tables are defined as SQLAlchemy models in `backend/app/models/`:
 | `courses`                     | `Course`                   | One SFU course                                                                                       |
 | `prerequisites`               | `Prerequisite`             | A course that another course requires. Rows with the same `group_number` are alternatives            |
 | `terms`                       | `Term`                     | An SFU term, keyed by its 4-digit code                                                               |
-| `users`                       | `User`                     | An account: email and a hashed password                                                              |
+| `users`                       | `User`                     | An account: email, display username and a hashed password                                            |
 | `user_sessions`               | `UserSession`              | A signed-in browser session: a hash of its token and when it expires                                 |
 | `plans`                       | `Plan`                     | A user's course plan, with an optional `start_term_code`                                             |
 | `plan_courses`                | `PlanCourse`               | One course placed in one `year` and `season` slot of a plan. A course can appear in a plan only once |

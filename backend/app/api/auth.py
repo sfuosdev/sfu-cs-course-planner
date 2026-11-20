@@ -55,7 +55,7 @@ def register(
     db: Session = Depends(get_db),
 ) -> User:
     try:
-        user = create_user(db, payload.email, payload.password)
+        user = create_user(db, payload.email, payload.password, payload.username)
     except EmailAlreadyRegisteredError as exc:
         raise HTTPException(
             status_code=409, detail="An account with this email already exists"

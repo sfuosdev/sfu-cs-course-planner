@@ -69,26 +69,29 @@ Routes that need a signed-in user return `401` without a valid cookie.
 Creates an account and signs in.
 
 Request, a `RegisterRequest`. `email` must be a valid email address, and `password`
-must be 8–128 characters. Emails aren't case-sensitive:
+must be 8–128 characters. Emails aren't case-sensitive. `username` is a display name:
+it is trimmed, must be 1–50 characters, and doesn't have to be unique. Sign-in still
+uses the email:
 
 ```json
-{ "email": "student@sfu.ca", "password": "correct horse battery" }
+{ "email": "student@sfu.ca", "password": "correct horse battery", "username": "Test user" }
 ```
 
 Response `201`, a `UserResponse`, with the `session` cookie set. The password is
 never returned:
 
 ```json
-{ "id": 1, "email": "student@sfu.ca", "createdAt": "2026-01-15T18:30:00Z" }
+{ "id": 1, "email": "student@sfu.ca", "username": "Test user", "createdAt": "2026-01-15T18:30:00Z" }
 ```
 
-Errors: `409` if the email already has an account; `422` for an invalid email or a
-password that is too short or too long.
+Errors: `409` if the email already has an account; `422` for an invalid email, a
+password that is too short or too long, or a username that is missing, blank or
+longer than 50 characters.
 
 #### `POST /api/auth/login`
 
-Signs in with an existing account. Request, a `LoginRequest`, with the same fields as
-`RegisterRequest`:
+Signs in with an existing account. Request, a `LoginRequest`, with the `email` and
+`password` used to register:
 
 ```json
 { "email": "student@sfu.ca", "password": "correct horse battery" }

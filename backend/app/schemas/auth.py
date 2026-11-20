@@ -1,7 +1,9 @@
 from datetime import datetime
-
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from typing import Annotated
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, StringConstraints
 from pydantic.alias_generators import to_camel
+
+Username = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=50)]
 
 #request
 class RegisterRequest(BaseModel):
@@ -10,7 +12,7 @@ class RegisterRequest(BaseModel):
 
     email: EmailStr
     password: str = Field(min_length=8, max_length=128)
-
+    username: Username
 class LoginRequest(BaseModel):
     model_config = ConfigDict(alias_generator=to_camel,
                               populate_by_name=True)
@@ -26,4 +28,5 @@ class UserResponse(BaseModel):
 
     id: int
     email: str
+    username: str
     created_at: datetime
