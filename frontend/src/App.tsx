@@ -8,10 +8,8 @@ import {
   formatTermLabel,
   getPlannedCoursesCount,
   getPlannedUnits,
-  isCoursePlanned,
   termKey,
 } from "./components/planner/plannerUtils";
-import type { SemesterCourses } from "./components/planner/types";
 import { ProgressRail } from "./components/ProgressRail";
 import { SearchPanel } from "./components/SearchPanel";
 import { useAuth } from "#contexts/AuthContext";
@@ -19,6 +17,7 @@ import type { Course } from "#types/Course";
 import { Login } from "./pages/Login";
 import { Placeholder } from "./pages/Placeholder";
 import { SignUp } from "./pages/SignUp";
+import { usePlan} from "#services/hooks/usePlan";
 
 function Dashboard() {
   const [activeConcentration, setActiveConcentration] = useState(
@@ -26,62 +25,27 @@ function Dashboard() {
   );
   const [years, setYears] = useState([1, 2, 3, 4]);
   const [selectedTerm, setSelectedTerm] = useState(termKey(1, "Fall"));
-  const [plannedCourses, setPlannedCourses] = useState<SemesterCourses>({});
+  const { plannedCourses, isCoursePlanned, addCourse, removeCourse, moveCourse, status } = usePlan();
   const [plannerMessage, setPlannerMessage] = useState<string | null>(null);
   const navigate = useNavigate();
   const { currentUser, clearCurrentUser } = useAuth();
 
   const handleSelectCourse = (course: Course) => {
-    if (isCoursePlanned(plannedCourses, course.id)) {
+    if (isCoursePlanned(course.id)) {
       setPlannerMessage(`${course.courseCode} is already in your plan.`);
       return;
     }
 
-    setPlannedCourses((current) => ({
-      ...current,
-      [selectedTerm]: [...(current[selectedTerm] ?? []), course],
-    }));
+    addCourse(course, selectedTerm);
     setPlannerMessage(
       `${course.courseCode} was added to ${formatTermLabel(selectedTerm)}.`,
     );
   };
 
-  const handleRemoveCourse = (semesterKey: string, courseId: string) => {
-    setPlannedCourses((current) => ({
-      ...current,
-      [semesterKey]: (current[semesterKey] ?? []).filter(
-        (course) => course.id !== courseId,
-      ),
-    }));
-  };
-
-  const handleMoveCourse = (
-    fromTerm: string,
-    toTerm: string,
-    courseId: string,
-  ) => {
-    if (!toTerm || fromTerm === toTerm) return;
-
-    setPlannedCourses((current) => {
-      const course = (current[fromTerm] ?? []).find(
-        (planned) => planned.id === courseId,
-      );
-      if (
-        !course ||
-        (current[toTerm] ?? []).some((planned) => planned.id === courseId)
-      ) {
-        return current;
-      }
-
-      return {
-        ...current,
-        [fromTerm]: (current[fromTerm] ?? []).filter(
-          (planned) => planned.id !== courseId,
-        ),
-        [toTerm]: [...(current[toTerm] ?? []), course],
-      };
-    });
-  };
+  const handleMoveCourse = (fromTerm: string, toTerm: string, courseId: number) => {
+        if (!toTerm || fromTerm === toTerm) return;
+        moveCourse(fromTerm, toTerm, courseId);
+    };
 
   const handleLogout = async () => {
     try {
@@ -113,7 +77,7 @@ function Dashboard() {
         <div className="topbar-actions">
           <span className="save-state">
             <span aria-hidden="true" />
-            Draft plan
+            {status}
             {currentUser ? (
               <button type="button" onClick={handleLogout}>
                 Log out
@@ -144,7 +108,7 @@ function Dashboard() {
           onSelectTerm={setSelectedTerm}
           onAddYear={() => setYears((current) => [...current, current.length + 1])}
           onMoveCourse={handleMoveCourse}
-          onRemoveCourse={handleRemoveCourse}
+          onRemoveCourse={removeCourse}
         />
         <SearchPanel
           selectedTerm={selectedTerm}

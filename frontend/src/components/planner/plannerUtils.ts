@@ -29,7 +29,7 @@ export const getSemesterOptions = (years: number[]): SemesterOption[] =>
 
 export const isCoursePlanned = (
   plannedCourses: SemesterCourses,
-  courseId: string,
+  courseId: number,
 ) =>
   Object.values(plannedCourses)
     .flat()

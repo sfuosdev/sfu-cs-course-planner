@@ -12,8 +12,8 @@ type PlannerProps = {
   onSelectConcentration: (concentration: string) => void
   onSelectTerm: (semesterKey: string) => void
   onAddYear: () => void
-  onMoveCourse: (fromTerm: string, toTerm: string, courseId: string) => void
-  onRemoveCourse: (semesterKey: string, courseId: string) => void
+  onMoveCourse: (fromTerm: string, toTerm: string, courseId: number) => void
+  onRemoveCourse: (semesterKey: string, courseId: number) => void
 }
 
 export function Planner({

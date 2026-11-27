@@ -1,8 +1,9 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { MOCK_COURSES } from "#mock-data/MockCourses";
-import { simulateNetworkDelay } from "#utils/utils";
+
+import { getAllCourses } from "#services/courses";
 import { CourseContext } from "./CourseContext";
 import type { Course } from "#types/Course";
+import { getErrorMessage } from "#services/errors";
 
 export const CourseContextProvider = ({
   children,
@@ -17,13 +18,9 @@ export const CourseContextProvider = ({
     const fetchCourses = async () => {
       try {
         setIsLoading(true);
-
-        // Simulating network delay for 1 second (1000ms)
-        await simulateNetworkDelay(1000);
-
-        setAllCourses(MOCK_COURSES);
+        setAllCourses(await getAllCourses());
       } catch (error) {
-        setError("Error when fetching courses.");
+        setError(getErrorMessage(error));
         console.error(error);
       } finally {
         setIsLoading(false);

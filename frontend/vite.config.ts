@@ -7,4 +7,10 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
   },
+  server: {
+    proxy: {
+      "/api": { target: process.env.API_PROXY_TARGET ?? "http://localhost:8000", changeOrigin: true },
+    },
+    watch: { usePolling: process.env.WATCHFILES_FORCE_POLLING === "true" },
+  },
 });

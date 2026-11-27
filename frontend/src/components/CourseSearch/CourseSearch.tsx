@@ -28,17 +28,18 @@ export const CourseSearch = ({ onSelect }: CourseSearchProps) => {
   }
 
   const normalizedSearchQuery = searchQuery.trim().toLowerCase();
-  const filteredCourses =
-    normalizedSearchQuery === ""
-      ? []
-      : allCourses.filter((course) => {
-          const courseCode = course.courseCode.trim().toLowerCase();
-          const courseTitle = course.title.trim().toLowerCase();
-          return (
-            courseCode.includes(normalizedSearchQuery) ||
-            courseTitle.includes(normalizedSearchQuery)
-          );
-        });
+// Ignore spaces in codes, so "cmpt225" and "cmpt 225" both match "CMPT 225"
+const compactQuery = normalizedSearchQuery.replace(/\s+/g, "");
+
+const codeMatches = allCourses.filter((course) =>
+  course.courseCode.toLowerCase().replace(/\s+/g, "").startsWith(compactQuery),
+);
+const filteredCourses =
+  normalizedSearchQuery === ""
+    ? []
+    : codeMatches.length > 0
+      ? codeMatches
+      : allCourses.filter((course) => course.title.toLowerCase().includes(normalizedSearchQuery));
 
   return (
     <section className={styles.container}>

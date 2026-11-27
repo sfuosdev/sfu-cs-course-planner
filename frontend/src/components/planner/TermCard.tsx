@@ -10,8 +10,8 @@ type TermCardProps = {
   isSelected: boolean
   semesterOptions: SemesterOption[]
   onSelect: (semesterKey: string) => void
-  onMoveCourse: (fromTerm: string, toTerm: string, courseId: string) => void
-  onRemoveCourse: (semesterKey: string, courseId: string) => void
+  onMoveCourse: (fromTerm: string, toTerm: string, courseId: number) => void
+  onRemoveCourse: (semesterKey: string, courseId: number) => void
 }
 
 export function TermCard({

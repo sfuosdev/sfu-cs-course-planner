@@ -313,6 +313,11 @@ npm install
 npm run dev
 ```
 
+The dev server forwards every request starting with `/api` to the backend at
+`http://localhost:8000` (see `frontend/vite.config.ts`), so start the backend
+first. To use a different backend, set `API_PROXY_TARGET`. Docker Compose sets it
+to `http://backend:8000`.
+
 Open the local URL printed by Vite (usually `http://localhost:5173`). To create
 and preview a production build, run `npm run build` and then `npm run preview`
 from `frontend/`.
